@@ -5,6 +5,12 @@ angular.module('starter.controllers', [])
   that the user has. The user can add and delete the profiles from the dashboard
  */
 
+ .controller('SearchCtrl', ['$rootScope', '$scope', '$ionicModal', '$ionicPopup',
+               '$window', '$stateParams', '$state', 'dashFactory', '$ionicListDelegate',
+               function($rootScope, $scope, $ionicModal, $ionicPopup, $window, $stateParams,
+               $state, dashFactory, $ionicListDelegate) {
+  }])
+
  .controller('ImageCtrl', ['$rootScope', '$scope', '$ionicModal', '$ionicPopup',
                '$window', '$stateParams', '$state', 'dashFactory', '$ionicListDelegate',
                function($rootScope, $scope, $ionicModal, $ionicPopup, $window, $stateParams,

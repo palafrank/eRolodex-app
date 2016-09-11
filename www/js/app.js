@@ -77,6 +77,16 @@ angular.module('eRolodex', ['ionic', 'starter.controllers', 'starter.services',
     }
   })
 
+  .state('tab.search', {
+    url: '/search',
+    views: {
+      'tab-search': {
+        templateUrl: 'templates/search.html',
+        controller: 'SearchCtrl',
+      }
+    }
+  })
+
   .state('tab.dir', {
       url: '/dir',
       views: {
