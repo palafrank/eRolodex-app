@@ -1,0 +1,47 @@
+<ion-modal-view>
+  <ion-header-bar class="rolodex-header" >
+    <h1 class="title">
+      Profile
+    </h1>
+    <div class="buttons">
+      <button class="button button-dark" ng-click="closeProfilePreview()">
+        Close
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="padding">
+      <img ng-src="{{getImageLink(profileData.profilePicture)}}" id="profilePicture" class="profile-image" ng-click="updateProfileImage()">
+      </img>
+      <p> <b>Profile Name: </b> {{profileData.profileName}}</p>
+      <p> <b>Name:</b> {{profileData.prefix}} {{profileData.firstName}} {{profileData.lastName}}</p>
+      <p> <b>Title:</b> {{profileData.title}}</p>
+      <div ng-if="profileData.phone.length">
+        <p><b>Phone Numbers:</b></p>
+        <div ng-repeat="phone in profileData.phone">
+          <p>&nbsp&nbsp&nbsp<b>{{phone.name}}: </b>{{phone.number}}</p>
+        </div>
+      </div>
+      <div ng-if="profileData.email.length">
+        <p><b>Emails:</b></p>
+        <div ng-repeat="email in profileData.email">
+          <p>&nbsp&nbsp&nbsp<b>{{email.name}}: </b>{{email.email}}</p>
+        </div>
+      </div>
+      <div ng-if="profileData.web.length">
+        <p><b>Websites:</b></p>
+        <div ng-repeat="web in profileData.web">
+          <p>&nbsp&nbsp&nbsp<b>{{web.name}}: </b>{{web.link}}</p>
+        </div>
+      </div>
+      <div ng-if="profileData.address.length">
+        <p><b>Addresses:</b></p>
+        <div ng-repeat="address in profileData.address">
+          <p>&nbsp&nbsp&nbsp<b>{{address.name}}: </b></p>
+          <p>&nbsp&nbsp&nbsp&nbsp&nbsp{{address.address1}}</p>
+          <p ng-if="address.address2">&nbsp&nbsp&nbsp&nbsp&nbsp{{address.address2}}</p>
+          <p>&nbsp&nbsp&nbsp&nbsp&nbsp{{address.city}}, {{address.state}}</p>
+          <p>&nbsp&nbsp&nbsp&nbsp&nbsp{{address.country}} - {{address.zip}}</p>
+        </div>
+      </div>
+  </ion-content>
+</ion-modal-view>

@@ -1,0 +1,22 @@
+<ion-view cache-view="false" view-title="Profile Pictures">
+  <ion-nav-buttons side="secondary">
+    <div class="buttons">
+      <button class="button button-icon icon ion-ios-cloud-upload"
+        ng-click="chooseProfileImage()">
+      </button>
+    </div>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-list>
+    <ion-item ng-repeat="photo in profileDB[0].photos">
+        <div class="item item-divider">
+          <img ng-src="{{getImageLink(photo)}}" class="profile-image" ng-click="selectUploadedImage(photo)">
+          </img>
+          <ion-option-button class="button-assertive icon ion-minus-circled"
+          ng-click="deleteProfileImage(photo)">
+        </ion-option-button>
+        </div>
+    </ion-item>
+  </ion-list>
+  <ion-content>
+<ion-view>

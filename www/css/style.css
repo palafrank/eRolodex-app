@@ -1,0 +1,46 @@
+/* Empty. Add your own CSS if you like */
+.fullwidth-center {
+   width: 100%;
+   height: 100%;
+   margin-left: 40%;
+   margin-right: auto;
+   margin-top: 60%;
+   margin-bottom: auto;
+   max-width: initial;
+}
+
+.rolodex-header {
+  background-color: rgb(51, 204, 51);
+  font-family: cursive;
+}
+
+h1 {
+  font-family: cursive;
+}
+
+h2 {
+  font-family: sans-serif;
+}
+
+.edit-icon {
+  font-size: 15px;
+  margin-left: 92%;
+}
+
+.edit-small-icon {
+  font-size: 10px;
+}
+
+.profile-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  border: 1px solid #ddd;
+}
+
+.custom-avatar {
+  border-radius: 20%;
+}

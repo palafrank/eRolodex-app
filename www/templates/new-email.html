@@ -1,0 +1,40 @@
+<ion-modal-view>
+  <ion-header-bar class="rolodex-header" >
+    <h1 class="title">
+      Add New Email
+    </h1>
+    <div class="buttons">
+      <button class="button button-dark" ng-click="closeNewProfileForm(4)">
+        Close
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="padding">
+    <h1>Email</h1>
+    <form submit="">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Nickname:</span>
+          <input type="text" ng-model="emailData.name" placeholder="Home">
+        </label>
+        <br>
+        <label class="item item-input">
+          <input type="text" ng-model="emailData.email">
+        </label>
+        <br>
+        <div ng-if="isProfileEdit == false">
+          <button class="button button-full button-positive" type="submit"
+              ng-click="addNewEmail()">
+              Add
+          </button>
+        </div>
+        <div ng-if="isProfileEdit == true">
+          <button class="button button-full button-positive" type="submit"
+              ng-click="closeEditEmailInfo()">
+              Done
+          </button>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

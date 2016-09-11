@@ -1,0 +1,121 @@
+<ion-modal-view>
+  <ion-header-bar class="rolodex-header" >
+    <h1 class="title">
+      Profile
+    </h1>
+    <div class="buttons">
+      <button class="button button-dark" ng-click="closeEditProfile()">
+        Close
+      </button>
+    </div>
+    <div class="buttons">
+      <button class="button button-dark" ng-click="saveEditProfile()">
+        Save
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="padding">
+    <input type="checkbox" ng-model="profileData.defaultProfile" ng-click="publicProfileCfgChange()">
+      Public profile
+    </input>
+    <img ng-src="{{getImageLink(profileData.profilePicture)}}" id="profilePicture" class="profile-image" ng-click="updateProfileImage()">
+    </img>
+    <div class="card">
+      <p>
+        <b>&nbsp Profile Name: </b> {{profileData.profileName}}
+        <button class="icon ion-edit edit-small-icon"
+                ng-click="openEditProfileNameInfo()">
+        </button>
+      </p>
+      <p> <b>&nbsp Name:</b>
+        {{profileData.prefix}} {{profileData.firstName}} {{profileData.lastName}}
+      </p>
+      <p> <b>&nbsp Title:</b> {{profileData.title}}</p>
+    </div>
+        <p>
+          <b>Phone Numbers:</b>
+            <button class="icon ion-plus-circled edit-small-icon"
+                  ng-click="openNewPhoneForm(true)">
+            </button>
+        </p>
+      <div ng-if="profileData.phone.length">
+        <div class="card">
+          <div ng-repeat="phone in profileData.phone">
+            <p>&nbsp&nbsp&nbsp<b>{{phone.name}}: </b>{{phone.number}}
+              <button class="icon ion-edit edit-small-icon"
+                    ng-click="openEditPhoneInfo(phone)">
+              </button>
+              <button class="icon ion-close edit-small-icon"
+                    ng-click="deletePhoneInfo(phone)">
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+        <p>
+            <b>Emails:</b>
+            <button class="icon ion-plus-circled edit-small-icon"
+                  ng-click="openNewEmailForm(true)">
+            </button>
+        </p>
+      <div ng-if="profileData.email.length">
+        <div class="card">
+          <div ng-repeat="email in profileData.email">
+            <p>&nbsp&nbsp&nbsp<b>{{email.name}}: </b>{{email.email}}
+              <button class="icon ion-edit edit-small-icon"
+                  ng-click="openEditEmailInfo(email)">
+              </button>
+              <button class="icon ion-close edit-small-icon"
+                  ng-click="deleteEmailInfo(email)">
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+        <p>
+          <b>Websites:</b>
+          <button class="icon ion-plus-circled edit-small-icon"
+                  ng-click="openNewWebForm(true)">
+          </button>
+        </p>
+      <div ng-if="profileData.web.length">
+        <div class="card">
+          <div ng-repeat="web in profileData.web">
+            <p>&nbsp&nbsp&nbsp<b>{{web.name}}: </b>{{web.link}}
+              <button class="icon ion-edit edit-small-icon"
+                  ng-click="openEditWebInfo()">
+              </button>
+              <button class="icon ion-close edit-small-icon"
+                  ng-click="deleteWebInfo(web)">
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+        <p>
+          <b>Addresses:</b>
+          <button class="icon ion-plus-circled edit-small-icon"
+                  ng-click="openNewAddressForm(true)">
+          </button>
+        </p>
+      <div ng-if="profileData.address.length">
+        <div ng-repeat="address in profileData.address">
+          <div class="card">
+          <p>&nbsp&nbsp&nbsp<b>{{address.name}}: </b>
+
+          <button class="icon ion-edit edit-small-icon"
+                  ng-click="openEditAddressInfo()">
+          </button>
+          <button class="icon ion-close edit-small-icon"
+                  ng-click="deleteAddressInfo(address)">
+          </button>
+          </p>
+          <p>&nbsp&nbsp&nbsp&nbsp&nbsp{{address.address1}}</p>
+          <p ng-if="address.address2">&nbsp&nbsp&nbsp&nbsp&nbsp{{address.address2}}</p>
+          <p>&nbsp&nbsp&nbsp&nbsp&nbsp{{address.city}},    {{address.state}}</p>
+            <p>&nbsp&nbsp&nbsp&nbsp&nbsp{{address.country}} - {{address.zip}}</p>
+          </div>
+        </div>
+      </div>
+  </ion-content>
+</ion-modal-view>

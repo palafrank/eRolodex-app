@@ -1,0 +1,17 @@
+{
+  "customers": [
+    {
+      "id": "palafrank",
+      "name": "Palathingal Frank"
+    },
+    {
+      "id": "annmanavalan",
+      "name": "Ann Manavalan"
+    },
+    {
+      "id": "tobey",
+      "name": "Tobias Palathingal"
+    }
+  ],
+  "customerData": []
+}

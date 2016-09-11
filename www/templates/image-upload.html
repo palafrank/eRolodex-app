@@ -1,0 +1,25 @@
+<ion-modal-view>
+  <ion-header-bar class="rolodex-header" >
+    <h1 class="title">
+      Image Upload
+    </h1>
+    <div class="buttons">
+      <button class="button button-dark" ng-click="closeNewProfileForm(6)">
+        Close
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="padding">
+    <div class="item item-thumbnail">
+      <img ng-src="{{previewImage}}" id="previewImageNode" alt="PIC">
+    </div>
+    <button class="button button-calm"
+      ng-click="closeNewProfileForm(6)">
+      Cancel
+    </button>
+    <button class="button button-assertive"
+      ng-click="addNewProfileImage()">
+      Upload
+    </button>
+  </ion-content>
+</ion-modal-view>

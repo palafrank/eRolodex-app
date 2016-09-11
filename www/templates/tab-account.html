@@ -1,0 +1,23 @@
+<ion-view view-title="eRolodex Account">
+  <ion-nav-buttons side="secondary">
+    <button class="button button-icon icon ion-plus-circled"
+      ng-click="doNewAccount()">
+    </button>
+  </ion-nav-buttons>
+  <ion-content class="center">
+    <ion-list>
+      <div class="fullwidth-center">
+        <button ng-if=!isValidLogin class="button button-positive button-outline"
+            ng-click="doSignIn()">
+          Sign In
+        </button>
+      </div>
+      <div class="fullwidth-center">
+        <button ng-if=isValidLogin class="button button-positive button-outline"
+            ng-click="doSignOut()">
+          Sign Out
+        </button>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

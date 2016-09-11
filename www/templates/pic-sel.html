@@ -1,0 +1,28 @@
+<ion-modal-view>
+  <ion-header-bar class="rolodex-header" >
+    <h1 class="title">
+      Picture Selector
+    </h1>
+    <div class="buttons">
+      <button class="button button-dark" ng-click="closeNewProfileForm(5)">
+        Close
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="padding">
+    <ion-list>
+      <div ng-if="profileDB[0].photos">
+        <ion-item ng-repeat="photo in profileDB[0].photos">
+          <img ng-src="{{getImageLink(photo)}}" class="profile-image" ng-click="selectUploadedImage(photo)">
+          </img>
+          <ion-option-button class="button-assertive icon ion-minus-circled"
+          ng-click="deleteProfileImage(photo)">
+          </ion-option-button>
+        </ion-item>
+      </div>
+      <div ng-if="!profileDB[0].photos">
+        No profile pictures uploaded
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-modal-view>

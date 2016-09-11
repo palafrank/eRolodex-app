@@ -1,0 +1,45 @@
+<ion-modal-view>
+  <ion-header-bar class="rolodex-header" >
+    <h1 class="title">
+      eRolodex Login
+    </h1>
+    <div class="buttons">
+      <button class="button button-dark" ng-click="closeLogin()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="padding">
+    <form submit="">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Username:</span>
+          <input type="text" style="text-transform:lowercase" ng-model="loginData.username">
+        </label>
+        <br>
+        <label class="item item-input">
+          <span class="input-label">Password:</span>
+          <input type="password" ng-model="loginData.password">
+        </label>
+        <br>
+        <label ng-if=createAccountFlag class="item item-input">
+          <span class="input-label">First Name:</span>
+          <input type="text" ng-model="loginData.firstname">
+        </label>
+        <br>
+        <label ng-if=createAccountFlag class="item item-input">
+          <span class="input-label">Last Name:</span>
+          <input type="text" ng-model="loginData.lastname">
+        </label>
+        <br>
+        <button ng-if=!createAccountFlag class="button button-full button-positive"
+            type="submit" ng-click="submitLogin()">
+          Log In
+        </button>
+      </div>
+    </form>
+    <button ng-if=createAccountFlag class="button button-full button-positive"
+        ng-click="createAccount()">
+      Create Account
+    </button>
+    <a ng-if=!createAccountFlag href="tab-account.html">Forgot username or password?</a>
+  </ion-content>
+</ion-modal-view>

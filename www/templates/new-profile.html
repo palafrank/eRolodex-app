@@ -1,0 +1,85 @@
+<ion-modal-view>
+  <ion-header-bar class="rolodex-header" >
+    <h1 class="title">
+      Add New Profile
+    </h1>
+    <div class="buttons">
+      <button class="button button-dark" ng-click="closeNewProfileForm()">
+        Close
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="padding">
+    <form submit="">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Profile Name:</span>
+          <input type="text" ng-model="profileData.profileName">
+        </label>
+        <br>
+        <label class="item item-input item-select">
+          <span class="input-label">Honorific Title:</span>
+          <select ng-model="profileData.prefix">
+            <option selected>Mr.</option>
+            <option>Mrs.</option>
+            <option>Miss.</option>
+            <option>Ms.</option>
+            <option>Dr.</option>
+            <option>Prof.</option>
+          </select>
+        </label>
+        <br>
+        <label class="item item-input">
+          <span class="input-label">Last Name:</span>
+          <input type="text" ng-model="profileData.lastName">
+        </label>
+        <br>
+        <label class="item item-input">
+          <span class="input-label">First Name:</span>
+          <input type="text" ng-model="profileData.firstName">
+        </label>
+        <br>
+        <label class="item item-input">
+          <span class="input-label">Title:</span>
+          <input type="text" ng-model="profileData.title">
+        </label>
+        <br>
+        <div class="buttons">
+          <button class="button button-icon icon ion-ios-telephone"
+            ng-click="openNewPhoneForm(false)">
+          </button>
+          <button class="button button-icon icon ion-home"
+            ng-click="openNewAddressForm(false)">
+          </button>
+          <button class="button button-icon icon ion-email"
+            ng-click="openNewEmailForm(false)">
+          </button>
+          <button class="button button-icon icon ion-earth"
+            ng-click="openNewWebForm(false)">
+          </button>
+          <button ng-if="isProfileEdit == false" class="button button-icon icon ion-ios-camera"
+            ng-click="updateProfileImage()">
+          </button>
+          <button class="button button-icon icon ion-ios-checkmark"
+            ng-click="setProfileDefault()">
+          </button>
+          <button ng-if="isProfileEdit == false" class="button button-icon icon ion-ios-eye"
+            ng-click="openProfileView(profileData)">
+          </button>
+        </div>
+        <div ng-if="isProfileEdit == false">
+          <button class="button button-full button-positive" type="submit"
+              ng-click="addNewProfile()">
+              Submit
+          </button>
+        </div>
+        <div ng-if="isProfileEdit == true">
+          <button class="button button-full button-positive" type="submit"
+              ng-click="closeEditProfileNameInfo()">
+              Done
+          </button>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

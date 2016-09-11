@@ -1,0 +1,57 @@
+<ion-modal-view>
+  <ion-header-bar class="rolodex-header" >
+    <h1 class="title">
+      Add New Address
+    </h1>
+    <div class="buttons">
+      <button class="button button-dark" ng-click="closeNewProfileForm(1)">
+        Close
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="padding">
+    <h1>New Address:</h1>
+    <form submit="">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Nickname:</span>
+          <input type="text" ng-model="addData.name" placeholder="Home">
+        </label>
+        <br>
+        <label class="item item-input">
+          <input type="text" ng-model="addData.address1"
+            placeholder="Address 1">
+        </label>
+        <br>
+        <label class="item item-input">
+          <input type="text" ng-model="addData.address2"
+            placeholder="Address 2">
+        </label>
+        <br>
+        <label class="item item-input">
+          <div class="row">
+            <input type="text" ng-model="addData.city"
+              placeholder="City">
+            <input type="text" ng-model="addData.state"
+              placeholder="State">
+          </div>
+        </label>
+        <br>
+        <label class="item item-input">
+          <input type="text" ng-model="addData.country"
+            placeholder="Country">
+        </label>
+        <br>
+        <label class="item item-input">
+          <input type="text" ng-model="addData.zip"
+            placeholder="Zip Code">
+        </label>
+        <br>
+        <button class="button button-full button-positive" type="submit"
+              ng-click="addNewAddress()">
+          Add
+        </button>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

@@ -1,0 +1,36 @@
+
+<ion-view view-title={{dashName}}>
+  <ion-nav-buttons side="secondary">
+    <div class="buttons">
+      <button class="button button-icon icon ion-person-add"
+        ng-click="addNewProfileForm()">
+      </button>
+    </div>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-list>
+    <ion-item ng-repeat="profile in profileDB[0].profiles">
+      <div class="card" ng-click="editProfile(profile)">
+        <div class="item item-divider">
+          {{profile.profileName}}
+          <div ng-if=profile.data>
+            <button class="button button-icon icon ion-ios-checkmark">
+            </button>
+          </div>
+        </div>
+        <div class="item item-avatar item-text-wrap">
+          <img ng-src="{{getImageLink(profile.profilePicture)}}" alt="My Picture">
+          <h2>{{profile.firstName}} {{profile.lastName}}</h2>
+          <p>{{profile.title}}</p>
+          <p ng-if=profile.defaultProfile>
+            <small style="color:red">This profile is public</small>
+          </p>
+          <ion-option-button class="button-assertive icon ion-minus-circled"
+            ng-click="deleteProfile(profile._id)">
+          </ion-option-button>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-content>
+<ion-view>
