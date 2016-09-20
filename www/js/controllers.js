@@ -9,6 +9,62 @@ angular.module('starter.controllers', [])
                '$window', '$stateParams', '$state', 'dashFactory', '$ionicListDelegate',
                function($rootScope, $scope, $ionicModal, $ionicPopup, $window, $stateParams,
                $state, dashFactory, $ionicListDelegate) {
+
+    $scope.searchData = {};
+    $scope.oldSearchData = {};
+    $scope.profileDB = [];
+    $scope.profileData = {};
+
+    $ionicModal.fromTemplateUrl('templates/profile-preview.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.profileDetailModal = modal;
+    });
+
+    var mySearchVariable = setInterval(searchQueryFunction, 3000);
+
+    function searchQueryFunction() {
+      //Send request and collect information
+      if($scope.searchData.searchString != $scope.oldSearchData.searchString) {
+        console.log("Send request to search");
+        $scope.oldSearchData.searchString = $scope.searchData.searchString;
+        dashFactory.getSearchResource($scope.searchData.searchString).search()
+        .$promise.then(
+          function(profiles) {
+            console.log("Got the search result  and " + profiles);
+            $scope.profileDB = profiles;
+          },
+          function(err) {
+            console.log("Error in search data");
+          }
+        )
+      }
+    }
+
+    $scope.getImageLink = function(pic) {
+      return dashFactory.getProfileImageLink(pic);
+    }
+
+    $scope.getProfileDetails = function(profile) {
+      $scope.profileData = profile;
+      $scope.profileDetailModal.show();
+    }
+
+    $scope.closeProfilePreview = function(profile) {
+      $scope.profileDetailModal.hide();
+      $scope.profileData = {};
+    }
+
+    $scope.$on("$locationChangeStart", function(event, next, current){
+      if (current.match("\/search")) {
+        console.log("Stopping the search interval event");
+        clearInterval(mySearchVariable);
+      } else {
+        console.log("Starting the search interval event");
+        mySearchVariable = setInterval(searchQueryFunction, 3000);
+      }
+    });
+
   }])
 
  .controller('ImageCtrl', ['$rootScope', '$scope', '$ionicModal', '$ionicPopup',

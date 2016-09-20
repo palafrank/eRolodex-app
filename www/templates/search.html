@@ -1,4 +1,20 @@
 <ion-view view-title="Search Contacts">
   <ion-content>
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" placeholder="Search" ng-model="searchData.searchString">
+  </label>
+  <ion-item ng-repeat="profile in profileDB">
+    <div class="card" ng-click="getProfileDetails(profile)">
+      <div class="item item-divider">
+        {{profile.profileName}}
+      </div>
+      <div class="item item-avatar item-text-wrap">
+        <img ng-src="{{getImageLink(profile.profilePicture)}}" alt="My Picture">
+        <h2>{{profile.firstName}} {{profile.lastName}}</h2>
+        <p>{{profile.title}}</p>
+      </div>
+    </div>
+  </ion-item>
   <ion-content>
 <ion-view>

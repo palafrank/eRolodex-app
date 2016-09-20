@@ -2,8 +2,6 @@ angular.module('starter.services', ['ngResource'])
 
 //.constant("baseURL", "https://localhost:3443/")
 .constant("baseURL", "http://localhost:3000/")
-//.constant("baseURL", "http://171.70.232.140:3000/")
-//.constant("baseURL", "http://192.168.0.102:3000/")
 
   .factory('loginFactory', ['$resource', 'baseURL', function($resource, baseURL){
     return {
@@ -45,6 +43,26 @@ angular.module('starter.services', ['ngResource'])
 
 .factory('directoryFactory', ['$resource', 'baseURL', function($resource, baseURL) {
   return $resource(baseURL + "customers");
+}])
+
+.factory('searchFactory', ['$resource', 'baseURL', function($resource, baseURL) {
+  return {
+    getDefaultProfiles: function(searchString) {
+      var url = "";
+      url = baseURL + "search/";
+      return $resource(url, null,
+      {
+        'getProfiles':
+        {
+          method: 'GET', isArray:true,
+          headers:
+          {
+            'x-access-token' : $rootScope.token
+          }
+        }
+      })
+    }
+  };
 }])
 
 .factory('dashFactory', ['$resource', '$rootScope', 'baseURL',
@@ -110,6 +128,22 @@ angular.module('starter.services', ['ngResource'])
                           }
                         }
                       );
+    },
+
+    getSearchResource : function(searchString) {
+      var url = baseURL + "search";
+      return $resource(url, null, {
+        'search': {
+          method: 'GET', isArray:true,
+          params: {
+            "search":searchString,
+          },
+          headers:
+          {
+            'x-access-token' : $rootScope.token,
+          },
+        },
+      });
     },
 
     getProfileImageResource : function(profilePicture) {
