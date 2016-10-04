@@ -12,13 +12,20 @@ angular.module('starter.controllers', [])
 
     $scope.searchData = {};
     $scope.oldSearchData = {};
-    $scope.profileDB = [];
+    $scope.searchedProfiles = [];
     $scope.profileData = {};
+    $scope.profileDB = {};
 
     $ionicModal.fromTemplateUrl('templates/profile-preview.html', {
       scope: $scope
     }).then(function(modal) {
       $scope.profileDetailModal = modal;
+    });
+
+    $ionicModal.fromTemplateUrl('templates/profile-selector.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.profileSelModal = modal;
     });
 
     var mySearchVariable = setInterval(searchQueryFunction, 3000);
@@ -32,7 +39,7 @@ angular.module('starter.controllers', [])
         .$promise.then(
           function(profiles) {
             console.log("Got the search result  and " + profiles);
-            $scope.profileDB = profiles;
+            $scope.searchedProfiles = profiles;
           },
           function(err) {
             console.log("Error in search data");
@@ -53,6 +60,40 @@ angular.module('starter.controllers', [])
     $scope.closeProfilePreview = function(profile) {
       $scope.profileDetailModal.hide();
       $scope.profileData = {};
+    }
+
+    $scope.sendProfileRequest = function(profile) {
+        $scope.profileDB = dashFactory.getProfileInfo();
+        $scope.requestOwnerId = profile.profileOwner;
+        console.log(JSON.stringify(profile));
+        $scope.profileSelModal.show();
+    }
+
+    $scope.closeProfileSelector = function() {
+        $scope.profileDB = {};
+        $scope.profileSelModal.hide();
+    }
+
+    $scope.selectProfile = function(profile) {
+      //Send the request with your profile
+      var sendStr = {
+        "ownerId" : $scope.requestOwnerId,
+        "request" :
+        {
+          "profileOwner" : $scope.profileDB[0].profileOwner,
+          "profileId" : profile._id
+        }
+      }
+      $scope.profileSelModal.hide();
+      dashFactory.getRequestResource().sendRequest(sendStr)
+        .$promise.then(
+          function(res) {
+            console.log("Saved the request");
+          },
+          function(err) {
+            console.log("Error is request");
+          }
+        )
     }
 
     $scope.$on("$locationChangeStart", function(event, next, current){
@@ -735,7 +776,11 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('DirCtrl', function($scope, directoryFactory, directory) {
+
+.controller('DirCtrl', ['$rootScope', '$scope', '$ionicModal', '$ionicListDelegate',
+  'directoryFactory','dashFactory', 'contactInfo',
+  function($rootScope, $scope, $ionicModal, $ionicListDelegate,
+    directoryFactory, dashFactory, contactInfo) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -744,8 +789,72 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $scope.directory = directory;
-})
+  $scope.requestInfo = directoryFactory.getRequestList();
+  $scope.contactInfo = directoryFactory.getContactList();
+  $scope.requestCtrl = true;
+
+  $ionicModal.fromTemplateUrl('templates/profile-preview.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.requestDetailModal = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('templates/request-selector.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.requestModal = modal;
+  });
+
+  $scope.getImageLink = function(pic) {
+    return dashFactory.getProfileImageLink(pic);
+  }
+
+  $scope.showPendingRequests = function(profile) {
+    $scope.requestModal.show();
+  }
+
+  $scope.showRequestProfile = function(profile) {
+    $scope.profileData = profile.profileId;
+    $scope.requestModal.show();
+  }
+
+  $scope.closeProfilePreview = function() {
+    $scope.requestDetailModal.hide();
+  }
+
+  $scope.closePendingRequests = function() {
+    $scope.requestModal.hide();
+  }
+
+  $scope.acceptRequestProfile = function(request) {
+    $ionicListDelegate.closeOptionButtons();
+    var sendStr = {
+      "profileOwner" : request.profileOwner
+    };
+    console.log("Reject request profile");
+    $ionicListDelegate.closeOptionButtons();
+    directoryFactory.getRequestResource("accept").requestAction(sendStr);
+  }
+
+  $scope.rejectRequestProfile = function(request) {
+    var sendStr = {
+      "profileOwner" : request.profileOwner
+    };
+    console.log("Reject request profile " + request.profileOwner);
+    $ionicListDelegate.closeOptionButtons();
+    directoryFactory.getRequestResource("reject").requestAction(sendStr)
+    .$promise.then(
+      function(reqList) {
+        directoryFactory.setRequestList(reqList);
+        $scope.requestInfo = directoryFactory.getRequestList();
+      },
+      function(err) {
+        console.log("Error rejecting request");
+      }
+    )
+  }
+
+}])
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);

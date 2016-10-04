@@ -4,6 +4,9 @@
       Profile
     </h1>
     <div class="buttons">
+      <button ng-if="requestCtrl" class="button button-dark" ng-click="acceptRequest()">
+        Accept
+      </button>
       <button class="button button-dark" ng-click="closeProfilePreview()">
         Close
       </button>

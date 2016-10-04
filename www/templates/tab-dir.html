@@ -1,13 +1,8 @@
 <ion-view view-title="Directory">
   <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right"
-                      ng-repeat="customer in directory" type="item-text-wrap"
-                      href="">
-        <img ng-src="">
-        <h2>{{customer.name}}</h2>
-        <i class="icon ion-plus-circled"></i>
-      </ion-item>
-    </ion-list>
+    <button class="button button-full button-positive"
+        ng-click="showPendingRequests()">
+      Pending Requests
+    </button>
   </ion-content>
 </ion-view>

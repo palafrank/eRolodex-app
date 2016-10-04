@@ -4,17 +4,20 @@
     <i class="icon ion-search placeholder-icon"></i>
     <input type="text" placeholder="Search" ng-model="searchData.searchString">
   </label>
-  <ion-item ng-repeat="profile in profileDB">
-    <div class="card" ng-click="getProfileDetails(profile)">
+  <ion-item ng-repeat="res in searchedProfiles">
+    <div class="card">
       <div class="item item-divider">
-        {{profile.profileName}}
+        {{res.profile.profileName}}
+        <button ng-if="isValidLogin" class="icon ion-ios-email-outline edit-small-icon"
+            ng-click="sendProfileRequest(res)">
+        </button>
       </div>
-      <div class="item item-avatar item-text-wrap">
-        <img ng-src="{{getImageLink(profile.profilePicture)}}" alt="My Picture">
-        <h2>{{profile.firstName}} {{profile.lastName}}</h2>
-        <p>{{profile.title}}</p>
+      <div class="item item-avatar item-text-wrap"  ng-click="getProfileDetails(res.profile)">
+        <img ng-src="{{getImageLink(res.profile.profilePicture)}}" alt="My Picture">
+        <h2>{{res.profile.firstName}} {{res.profile.lastName}}</h2>
+        <p>{{res.profile.title}}</p>
       </div>
     </div>
   </ion-item>
-  <ion-content>
-<ion-view>
+</ion-content>
+</ion-view>

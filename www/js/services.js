@@ -41,8 +41,59 @@ angular.module('starter.services', ['ngResource'])
     };
   }])
 
-.factory('directoryFactory', ['$resource', 'baseURL', function($resource, baseURL) {
-  return $resource(baseURL + "customers");
+.factory('directoryFactory', ['$resource', '$rootScope', 'baseURL',
+  function($resource, $rootScope, baseURL) {
+  var requestList = {};
+  var contactList = {};
+  return {
+    getRequestResource : function(url_ext) {
+      var url = baseURL + "request/";
+      if(url_ext) {
+        url = url + url_ext + "/";
+      }
+      console.log("Again here");
+      return $resource(url, null, {
+        'getRequests': {
+          method: 'GET',
+          headers:
+          {
+            'x-access-token' : $rootScope.token,
+          }
+        },
+        'requestAction': {
+          method: 'DELETE',
+          headers:
+          {
+            'x-access-token' : $rootScope.token,
+          }
+        },
+      })
+    },
+    getContactResource : function() {
+      var url = baseURL + "contacts/";
+      return $resource(url, null, {
+        'getContacts': {
+          method: 'GET',
+          headers:
+          {
+            'x-access-token' : $rootScope.token,
+          }
+        }
+      })
+    },
+    setRequestList : function(reqList) {
+      this.requestList = reqList;
+    },
+    getRequestList : function() {
+      return this.requestList;
+    },
+    setContactList : function(contactList) {
+      this.contactList = contactList;
+    },
+    getContactList : function() {
+      return this.contactList;
+    }
+  };
 }])
 
 .factory('searchFactory', ['$resource', 'baseURL', function($resource, baseURL) {
@@ -138,6 +189,19 @@ angular.module('starter.services', ['ngResource'])
           params: {
             "search":searchString,
           },
+          headers:
+          {
+            'x-access-token' : $rootScope.token,
+          },
+        },
+      });
+    },
+
+    getRequestResource : function() {
+      var url = baseURL + "request";
+      return $resource(url, null, {
+        'sendRequest': {
+          method: 'POST',
           headers:
           {
             'x-access-token' : $rootScope.token,
