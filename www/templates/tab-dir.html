@@ -4,5 +4,23 @@
         ng-click="showPendingRequests()">
       Pending Requests
     </button>
+    <ion-list>
+      <ion-item ng-repeat="res in contactInfo.contacts">
+        <div class="card">
+          <div class="item item-divider">
+            {{res.profileId.profileName}}
+          </div>
+          <div class="item item-avatar item-text-wrap"  ng-click="getProfileDetails(res.profileId)">
+            <img ng-src="{{getImageLink(res.profileId.profilePicture)}}" alt="My Picture">
+            <h2>{{res.profileId.firstName}} {{res.profileId.lastName}}</h2>
+            <p>{{res.profileId.title}}</p>
+            <ion-option-button class="button-assertive"
+              ng-click="deleteContact(res._id)">
+              Delete
+            </ion-option-button>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

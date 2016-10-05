@@ -97,13 +97,7 @@ angular.module('eRolodex', ['ionic', 'starter.controllers', 'starter.services',
             contactInfo: ['directoryFactory', function(directoryFactory){
               return directoryFactory.getContactResource().getContacts()
               .$promise.then(function(response) {
-                directoryFactory.setContactList(response);
-                directoryFactory.getRequestResource().getRequests()
-                .$promise.then(function(response) {
-                  directoryFactory.setRequestList(response);
-                  console.log("Ok done");
-                  return response;
-                })
+                return response;
               });
             }]
           }

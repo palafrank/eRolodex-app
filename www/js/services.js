@@ -69,11 +69,21 @@ angular.module('starter.services', ['ngResource'])
         },
       })
     },
-    getContactResource : function() {
+    getContactResource : function(contact) {
       var url = baseURL + "contacts/";
+      if(contact) {
+        url = url + contact
+      }
       return $resource(url, null, {
         'getContacts': {
           method: 'GET',
+          headers:
+          {
+            'x-access-token' : $rootScope.token,
+          }
+        },
+        'delContacts': {
+          method: 'DELETE',
           headers:
           {
             'x-access-token' : $rootScope.token,

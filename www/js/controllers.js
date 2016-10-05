@@ -85,6 +85,7 @@ angular.module('starter.controllers', [])
         }
       }
       $scope.profileSelModal.hide();
+      console.log("Sending the request");
       dashFactory.getRequestResource().sendRequest(sendStr)
         .$promise.then(
           function(res) {
@@ -789,9 +790,14 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $scope.requestInfo = directoryFactory.getRequestList();
+  directoryFactory.setContactList(contactInfo);
   $scope.contactInfo = directoryFactory.getContactList();
+
   $scope.requestCtrl = true;
+
+
+  console.log($scope.requestInfo);
+
 
   $ionicModal.fromTemplateUrl('templates/profile-preview.html', {
     scope: $scope
@@ -809,8 +815,15 @@ angular.module('starter.controllers', [])
     return dashFactory.getProfileImageLink(pic);
   }
 
-  $scope.showPendingRequests = function(profile) {
-    $scope.requestModal.show();
+  $scope.showPendingRequests = function() {
+    directoryFactory.getRequestResource().getRequests()
+    .$promise.then(function(response) {
+      directoryFactory.setRequestList(response);
+      $scope.requestInfo = directoryFactory.getRequestList();
+      console.log(response);
+      console.log("Ok done");
+      $scope.requestModal.show();
+    })
   }
 
   $scope.showRequestProfile = function(profile) {
@@ -824,6 +837,26 @@ angular.module('starter.controllers', [])
 
   $scope.closePendingRequests = function() {
     $scope.requestModal.hide();
+  }
+
+  $scope.getProfileDetails = function(profile) {
+    $scope.profileData = profile;
+    $scope.requestDetailModal.show();
+  }
+
+  $scope.deleteContact = function(id) {
+    console.log("Deleting contact " + id);
+    $ionicListDelegate.closeOptionButtons();
+    directoryFactory.getContactResource(id).delContacts()
+    .$promise.then(
+      function(contactList) {
+        directoryFactory.setContactList(contactInfo);
+        $scope.contactInfo = directoryFactory.getContactList();
+      },
+      function(err) {
+        console.log("Error deleting contact");
+      }
+    )
   }
 
   $scope.acceptRequestProfile = function(request) {
@@ -845,8 +878,7 @@ angular.module('starter.controllers', [])
     directoryFactory.getRequestResource("reject").requestAction(sendStr)
     .$promise.then(
       function(reqList) {
-        directoryFactory.setRequestList(reqList);
-        $scope.requestInfo = directoryFactory.getRequestList();
+        $scope.showPendingRequests();
       },
       function(err) {
         console.log("Error rejecting request");
