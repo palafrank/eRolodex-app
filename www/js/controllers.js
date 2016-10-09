@@ -844,14 +844,13 @@ angular.module('starter.controllers', [])
     $scope.requestDetailModal.show();
   }
 
-  $scope.deleteContact = function(id) {
-    console.log("Deleting contact " + id);
+  $scope.deleteContact = function(contact) {
+    console.log("Deleting contact " + contact._id);
     $ionicListDelegate.closeOptionButtons();
-    directoryFactory.getContactResource(id).delContacts()
+    directoryFactory.getContactResource(contact._id).delContacts()
     .$promise.then(
       function(contactList) {
-        directoryFactory.setContactList(contactInfo);
-        $scope.contactInfo = directoryFactory.getContactList();
+        directoryFactory.removeContact(contact);
       },
       function(err) {
         console.log("Error deleting contact");
@@ -864,9 +863,19 @@ angular.module('starter.controllers', [])
     var sendStr = {
       "profileOwner" : request.profileOwner
     };
-    console.log("Reject request profile");
+    console.log("Accept request profile " + request);
     $ionicListDelegate.closeOptionButtons();
-    directoryFactory.getRequestResource("accept").requestAction(sendStr);
+    directoryFactory.getRequestResource("accept").requestAction(sendStr)
+    .$promise.then(
+      function(reqList) {
+        console.log("Done with the update");
+        directoryFactory.removeRequest(request);
+        directoryFactory.addContact(request);
+      },
+      function(err) {
+        console.log("Error rejecting request");
+      }
+    )
   }
 
   $scope.rejectRequestProfile = function(request) {
@@ -878,7 +887,7 @@ angular.module('starter.controllers', [])
     directoryFactory.getRequestResource("reject").requestAction(sendStr)
     .$promise.then(
       function(reqList) {
-        $scope.showPendingRequests();
+        directoryFactory.removeRequest(request);
       },
       function(err) {
         console.log("Error rejecting request");

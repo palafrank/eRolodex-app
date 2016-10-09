@@ -1,4 +1,4 @@
-<ion-view view-title="Directory">
+<ion-view cache-view="false" view-title="Directory">
   <ion-content>
     <button class="button button-full button-positive"
         ng-click="showPendingRequests()">
@@ -15,7 +15,7 @@
             <h2>{{res.profileId.firstName}} {{res.profileId.lastName}}</h2>
             <p>{{res.profileId.title}}</p>
             <ion-option-button class="button-assertive"
-              ng-click="deleteContact(res._id)">
+              ng-click="deleteContact(res)">
               Delete
             </ion-option-button>
           </div>

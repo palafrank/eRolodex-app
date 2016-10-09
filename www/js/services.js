@@ -97,12 +97,24 @@ angular.module('starter.services', ['ngResource'])
     getRequestList : function() {
       return this.requestList;
     },
+    removeRequest : function(request) {
+      var index = this.requestList.requests.indexOf(request);
+      console.log("Sloine index is " + index);
+      this.requestList.requests.splice(index, 1);
+    },
     setContactList : function(contactList) {
       this.contactList = contactList;
     },
     getContactList : function() {
       return this.contactList;
-    }
+    },
+    addContact : function(request) {
+      this.contactList.contacts.push(request);
+    },
+    removeContact : function(request) {
+      var index = this.contactList.contacts.indexOf(request);
+      this.contactList.contacts.splice(index, 1);
+    },
   };
 }])
 
