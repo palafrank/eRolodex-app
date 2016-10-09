@@ -793,10 +793,13 @@ angular.module('starter.controllers', [])
   directoryFactory.setContactList(contactInfo);
   $scope.contactInfo = directoryFactory.getContactList();
 
+  directoryFactory.getRequestResource().getRequests()
+  .$promise.then(function(response) {
+    directoryFactory.setRequestList(response);
+    $scope.requestInfo = directoryFactory.getRequestList();
+  });
+
   $scope.requestCtrl = true;
-
-
-  console.log($scope.requestInfo);
 
 
   $ionicModal.fromTemplateUrl('templates/profile-preview.html', {

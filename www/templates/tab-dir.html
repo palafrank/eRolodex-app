@@ -1,10 +1,13 @@
 <ion-view cache-view="false" view-title="Directory">
   <ion-content>
-    <button class="button button-full button-positive"
+    <button ng-if="requestInfo.requests.length" class="button button-full button-positive"
         ng-click="showPendingRequests()">
       Pending Requests
     </button>
     <ion-list>
+      <p ng-if="contactInfo.contacts.length == 0">
+        No contacts in directory
+      </p>
       <ion-item ng-repeat="res in contactInfo.contacts">
         <div class="card">
           <div class="item item-divider">
